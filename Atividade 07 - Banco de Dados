@@ -1,0 +1,66 @@
+
+Processo {
+	CodProcesso int pk
+	CodArea int pk > AreaJudicial.CodArea
+	CodTipo int pk >* TipoProcesso.CodTipo
+	NumSeq int
+	DataDist date
+}
+
+Despacho {
+	NumDespacho int pk
+	DataDespacho date pk
+	CodProcesso integer pk >* Processo.CodProcesso
+	TextoDespacho varchar
+}
+
+TipoProcesso {
+	CodTipo int pk *> Processo.id
+	DescTipo varchar
+}
+
+AreaJudicial {
+	CodArea int pk *> Processo.id
+	DescArea varchar
+}
+
+Vara {
+	CodVara int pk
+	CodCartorio int pk > Cartorio.CodCartorio
+	CodProcesso integer pk *> Processo.CodProcesso
+	DescVara varchar
+}
+
+Juiz {
+	MatJuiz int pk
+	CodVara integer pk > Vara.CodVara
+	NomeJuiz varchar
+}
+
+Cartorio {
+	CodVara integer pk > Vara.CodVara
+	CodCartorio int pk
+	DescCartorio varchar
+}
+
+Pessoa {
+	CPFPessoa char pk
+	EndPessoa varchar
+	NomePessoa varchar
+	NomeMae varchar
+	NomePai varchar
+	DataNascPessoa date
+	TelefonePessoa char
+}
+
+Participacao {
+	CodParticipacao int pk
+	DescParticipacao varchar
+}
+
+Composto {
+	CodProcesso int pk *>* Processo.CodProcesso
+	CodParticipacao int pk *> Participacao.CodParticipacao
+	CPFPessoa int pk *> Pessoa.CPFPessoa
+}
+
